@@ -1,0 +1,27 @@
+# 直接打开文件夹项目:
+*.jou
+*.log
+*.str
+
+# Vivado目录:
+/.Xil/
+/*.hw/
+/*.ip_user_files/
+/*.runs/
+/*.sim/
+/*.cache/
+
+# bit流文件需要:
+#格式不太对
+
+!*.bit 
+#!/*.runs\impl_1/*.bin
+
+#需要控制的文件有 
+#   .xdc    constraints引脚约束文件
+#   .v      (design/sim)资源文件
+#   .wcfg   vivado波形仿真窗口配置文件
+#   .xpr    vivado工程项目文件
+
+#不排除.gitignore
+!.gitignore
