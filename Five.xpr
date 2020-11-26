@@ -55,10 +55,10 @@
   <FileSets Version="1" Minor="31">
     <FileSet Name="sources_1" Type="DesignSrcs" RelSrcDir="$PSRCDIR/sources_1">
       <Filter Type="Srcs"/>
-      <File Path="$PSRCDIR/sources_1/imports/new/ClkDivision.v">
+      <File Path="$PSRCDIR/sources_1/new/ClkDivision.v">
         <FileInfo>
           <Attr Name="ImportPath" Val="$PSRCDIR/sources_1/new/ClkDivision.v"/>
-          <Attr Name="ImportTime" Val="1606393253"/>
+          <Attr Name="ImportTime" Val="1606398299"/>
           <Attr Name="UsedIn" Val="synthesis"/>
           <Attr Name="UsedIn" Val="implementation"/>
           <Attr Name="UsedIn" Val="simulation"/>
@@ -78,19 +78,19 @@
           <Attr Name="UsedIn" Val="simulation"/>
         </FileInfo>
       </File>
-      <File Path="$PSRCDIR/sources_1/imports/sources_1/imports/new/ScanKey.v">
+      <File Path="$PSRCDIR/sources_1/new/ScanKey.v">
         <FileInfo>
           <Attr Name="ImportPath" Val="$PSRCDIR/sources_1/new/ScanKey.v"/>
-          <Attr Name="ImportTime" Val="1606393270"/>
+          <Attr Name="ImportTime" Val="1606306742"/>
           <Attr Name="UsedIn" Val="synthesis"/>
           <Attr Name="UsedIn" Val="implementation"/>
           <Attr Name="UsedIn" Val="simulation"/>
         </FileInfo>
       </File>
-      <File Path="$PSRCDIR/sources_1/imports/new/v_disp1.v">
+      <File Path="$PSRCDIR/sources_1/new/v_disp1.v">
         <FileInfo>
           <Attr Name="ImportPath" Val="$PSRCDIR/sources_1/new/v_disp1.v"/>
-          <Attr Name="ImportTime" Val="1606393281"/>
+          <Attr Name="ImportTime" Val="1606398645"/>
           <Attr Name="UsedIn" Val="synthesis"/>
           <Attr Name="UsedIn" Val="implementation"/>
           <Attr Name="UsedIn" Val="simulation"/>
@@ -98,16 +98,6 @@
       </File>
       <File Path="$PSRCDIR/sources_1/new/Five.v">
         <FileInfo>
-          <Attr Name="UsedIn" Val="synthesis"/>
-          <Attr Name="UsedIn" Val="implementation"/>
-          <Attr Name="UsedIn" Val="simulation"/>
-        </FileInfo>
-      </File>
-      <File Path="$PSRCDIR/sources_1/imports/sources_1/new/vga.v">
-        <FileInfo>
-          <Attr Name="AutoDisabled" Val="1"/>
-          <Attr Name="ImportPath" Val="$PPRDIR/../BRAM/B/Gobang_BRAM/Gobang_BRAM.srcs/sources_1/new/vga.v"/>
-          <Attr Name="ImportTime" Val="1605075337"/>
           <Attr Name="UsedIn" Val="synthesis"/>
           <Attr Name="UsedIn" Val="implementation"/>
           <Attr Name="UsedIn" Val="simulation"/>
@@ -139,8 +129,10 @@
           <Attr Name="UsedIn" Val="simulation"/>
         </FileInfo>
       </File>
-      <File Path="$PPRDIR/Five_tb_behav.wcfg">
+      <File Path="$PSRCDIR/sim_1/imports/Five/Five_tb_behav.wcfg">
         <FileInfo>
+          <Attr Name="ImportPath" Val="$PPRDIR/Five_tb_behav.wcfg"/>
+          <Attr Name="ImportTime" Val="1606194533"/>
           <Attr Name="UsedIn" Val="simulation"/>
         </FileInfo>
       </File>
