@@ -48,7 +48,7 @@ begin
 #2 up =1;#1 up=0;
 #2 down =1;#1 down=0;
 #2 right =1;#1 right=0;
-#2 $stop; left =1;#1 left=0;
+#2 left =1;#1 left=0;
 #2 down =1;#1 down=0;
 #2 down =1;#1 down=0;
 #10 $finish;

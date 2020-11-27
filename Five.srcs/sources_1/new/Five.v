@@ -54,7 +54,6 @@ wire [3:0] x,y;
 wire [7:0]offset;
 
 
-
 ip_disp dis1(
     .clk(clk),
     .rst(0),
@@ -67,7 +66,7 @@ ip_disp dis1(
     .clk_ms(clk_ms),
     .clk_20ms(clk_20ms),
     .clk_s(clk_s)
-    );    //调用分频没模块
+    );    //调用分频模块
 
 ScanKey Sk1(//调用按键消抖动IP
     .ScanClk(clk_ms),
