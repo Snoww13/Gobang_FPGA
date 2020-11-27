@@ -52,13 +52,13 @@ end
             Q=0;
     的RTL机制的探讨问题
 */
-always@( posedge Sub or posedge Add or negedge Reset)
+always@( posedge Sub|Add or negedge Reset)
 begin
     if(Reset)
         data = 4'd0;
-    else if(IsMax & Add)
+    else if(isMax & Add)
         data = CanAcrossScreen? Min:data;   //决定是否穿越屏幕
-    else if(IsMin & Sub)
+    else if(isMin & Sub)
         data = CanAcrossScreen? Max:data;
     else if(Add)
         data = data + 1;    //即使Add和Sub理论上为窄脉冲不会同时触发

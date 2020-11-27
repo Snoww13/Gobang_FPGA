@@ -23,16 +23,13 @@
 
 module ClkDivision(
     input clk_50M,
-    output clk_ms,
-    output clk_20ms,
-    output clk_s
+    output reg clk_ms=0,
+    output reg clk_20ms=0,
+    output reg clk_s=0
     );
     
     reg [15:0] clk_i = 0;           //30位也许过大
     reg [20:0] clk_j = 0;
-    reg clk_ms = 0;
-    reg clk_20ms = 0;
-    reg clk_s = 0;
     
     always@ ( posedge clk_50M)
     begin 
@@ -49,7 +46,7 @@ module ClkDivision(
     always @( posedge clk_50M)
     begin 
        if(clk_j == 499999)    // 
-      // if(clk_j == 2)    // 2分频便于仿真波形使用
+       //if(clk_j == 1)    // 2分频便于仿真波形使用
         begin
             clk_20ms = ~clk_20ms;
             clk_j = 0;
@@ -61,7 +58,7 @@ module ClkDivision(
     always@( posedge clk_20ms)
     begin
       if(clk_k ==24)
-      //if(clk_k==2)
+      //if(clk_k==1)
         begin
             clk_s = ~clk_s;
             clk_k = 0;
