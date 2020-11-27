@@ -32,13 +32,12 @@ module MoveCounter(
     output IsMin
     );
 
-reg [3:0] data = 0;
-
+reg [3:0] data = 0; //寄存器输出？
+reg isMax, isMin;
 assign IsMax = isMax;
 assign IsMin = isMin;
 assign Data = data;
 
-reg isMax, isMin;
 always@(*)
 begin
     isMax = data>=Max;  //比较器是否浪费资源了
@@ -52,18 +51,22 @@ end
             Q=0;
     的RTL机制的探讨问题
 */
-always@( posedge Sub|Add or negedge Reset)
+always@( posedge (Add|Sub) or negedge Reset)
 begin
     if(Reset)
         data = 4'd0;
-    else if(isMax & Add)
+    else if(Add)
+        data = data+1;
+    else if(Sub)        //问题可能在于建立时间和保持时间
+        data = data -1;
+    /*else if(isMax & Add)
         data = CanAcrossScreen? Min:data;   //决定是否穿越屏幕
     else if(isMin & Sub)
         data = CanAcrossScreen? Max:data;
-    else if(Add)
+    else if(~isMax & Add)
         data = data + 1;    //即使Add和Sub理论上为窄脉冲不会同时触发
-    else if(Sub)            //但值得注意的是Add的优先级更大
-        data = data - 1;
+    else if(~isMin & Sub)            //但值得注意的是Add的优先级更大
+        data = data - 1;*/
     else
         data = data;
 end
