@@ -39,25 +39,26 @@ module Five(
 reg DEBUG = 0;
 
 wire clk_ms,clk_20ms,clk_s;
+
 wire[15:0] key;
-//wire [15:0] keyDebug;
 wire [15:0] button;
 assign button = DEBUG?keyDebug:key;
+
 wire up = button[14];
 wire down = button[6];
 wire left = button[11];
 wire right = button[9];
 
 wire isMaxX,isMinX,isMaxY,isMinY;
-
 wire [3:0] x,y;
-wire [7:0]offset;
+wire [7:0] offset;
+wire [11:0] offsetBcdDebug;
 
 
 ip_disp dis1(
     .clk(clk),
     .rst(0),
-    .dispdata({x[3:0],16'd0,y[3:0]}),
+    .dispdata({x[3:0],4'd0,offsetBcdDebug,y[3:0]}),
     .seg(seg),
     .an(an)
     );
@@ -111,6 +112,7 @@ OffsetCounter Oc1(
     .IsMinX( isMinX ),
     .IsMaxY( isMaxY ),
     .IsMinY( isMinY ),
+    .OffsetBcdDebug(offsetBcdDebug),
     .Offset(offset)
     );
 

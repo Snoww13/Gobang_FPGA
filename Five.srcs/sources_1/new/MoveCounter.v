@@ -44,7 +44,7 @@ begin
     isMin = data<=Min;
 end
 /*
-    这个地方会设计到以触发器简易复位机诸如
+    TODO:这个地方会设计到以触发器简易复位机诸如
     always@( posedge Sub or posedge Reset)
     begin
         if(Reset || Q==9)
@@ -56,17 +56,25 @@ begin
     if(Reset)
         data = 4'd0;
     else if(Add)
-        data = data+1;
-    else if(Sub)        //问题可能在于建立时间和保持时间
-        data = data -1;
-    /*else if(isMax & Add)
-        data = CanAcrossScreen? Min:data;   //决定是否穿越屏幕
-    else if(isMin & Sub)
-        data = CanAcrossScreen? Max:data;
-    else if(~isMax & Add)
-        data = data + 1;    //即使Add和Sub理论上为窄脉冲不会同时触发
-    else if(~isMin & Sub)            //但值得注意的是Add的优先级更大
-        data = data - 1;*/
+    begin
+        if(isMax&CanAcrossScreen)
+            data =Min;   //决定是否穿越屏幕
+        else if(isMax&~CanAcrossScreen)
+            data = Max;
+        else
+            data = data+1;
+    end
+        
+    else if(Sub)        //即使Add和Sub理论上为窄脉冲不会同时触发
+                        //但值得注意的是Add的优先级更大
+    begin
+        if(isMin&CanAcrossScreen)
+            data = Max;
+        else if(isMin&~CanAcrossScreen)
+            data = Min;
+        else
+            data = data -1;
+    end
     else
         data = data;
 end

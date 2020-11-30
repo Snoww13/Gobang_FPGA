@@ -31,11 +31,10 @@ module OffsetCounter(
     input IsMinX,
     input IsMaxY,
     input IsMinY,
-    output [7:0] Offset
+    output [11:0] OffsetBcdDebug,
+    output reg [7:0] Offset =0
     );
 parameter Y = 14, X=1,Y15L=210;
-
-reg [8:0] Offset = 0;
 
 always@(posedge Up|Down|Left|Right or negedge Reset)
 begin
@@ -75,5 +74,8 @@ begin
 
 end
 
+assign OffsetBcdDebug[11:8] = Offset / 8'd100;
+assign OffsetBcdDebug[7:4] = Offset %8'd100 / 8'd10;
+assign OffsetBcdDebug[3:0] = Offset % 8'd10;
 
 endmodule
