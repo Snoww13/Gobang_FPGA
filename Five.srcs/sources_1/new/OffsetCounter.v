@@ -21,7 +21,7 @@
 
 
 module OffsetCounter(
-    input CanAcrossScreen,
+    /*input CanAcrossScreen,
     input Reset,
     input Up,
     input Down,
@@ -30,52 +30,67 @@ module OffsetCounter(
     input IsMaxX,
     input IsMinX,
     input IsMaxY,
-    input IsMinY,
-    output [11:0] OffsetBcdDebug,
-    output reg [7:0] Offset =0
+    input IsMinY,*/
+    input [3:0]x,
+    input [3:0]y,
+    output reg [11:0] OffsetBcdDebug,
+    output reg [15:0] Offset =0
     );
-parameter Y = 14, X=1,Y15L=210;
 
-always@(posedge Up|Down|Left|Right or negedge Reset)
+//parameter Y = 14, X=1,Y15L=210;
+/*always@(posedge Up|Down|Left|Right or negedge Reset)
 begin
     if( Reset )
         Offset = 0;
     else if( Up )
     begin
-        if(CanAcrossScreen)
-            Offset = IsMinY? Offset+Y15L:Offset-Y;
+        if(IsMinY&CanAcrossScreen)
+            Offset =Offset + Y15L;   
+        else if(IsMinY&~CanAcrossScreen)
+            Offset =Offset; 
         else
-            Offset = IsMinY? Offset:Offset-Y;
+            Offset = Offset - Y;
     end
     
     else if( Down )
     begin
-        if(CanAcrossScreen)
-            Offset = IsMaxY? Offset-Y15L:Offset+Y;
+        if(IsMaxY&CanAcrossScreen)
+            Offset =Offset - Y15L;   
+        else if(IsMaxY&~CanAcrossScreen)
+            Offset =Offset; 
         else
-            Offset = IsMaxY? Offset:Offset+Y;
+            Offset = Offset + Y;
     end
     
     else if( Left )
     begin
-        if(CanAcrossScreen)
-            Offset = IsMinX? Offset+Y:Offset-1;
+        if(IsMinX&CanAcrossScreen)
+            Offset =Offset + Y;   
+        else if(IsMinX&~CanAcrossScreen)
+            Offset =Offset; 
         else
-            Offset = IsMinX? Offset:Offset-1;
+            Offset = Offset - 1;
     end
     
     else if( Right )
     begin
-        if(CanAcrossScreen)
-            Offset = IsMaxX? Offset-Y:Offset+1;
+        if(IsMaxX&CanAcrossScreen)
+            Offset =Offset - Y;   
+        else if(IsMaxX&~CanAcrossScreen)
+            Offset =Offset; 
         else
-            Offset = IsMaxX? Offset:Offset+1;
+            Offset = Offset + 1;
     end
+end*/
 
+always@(*)
+begin
+    Offset = 16'd14*{12'd0,y}+{12'd0,x};    //如果写成 15*y+x会(x y无响应)
+    //Offset <= Offset1 +y; //但是值得好奇的是 这个模块的代码没有理由会影响x 和y才对   
+
+    OffsetBcdDebug[11:8] = Offset / 8'd100;
+    OffsetBcdDebug[7:4] = Offset %8'd100 / 8'd10;
+    OffsetBcdDebug[3:0] = Offset % 8'd10;
 end
-
-assign OffsetBcdDebug[11:8] = Offset / 8'd100;
-assign OffsetBcdDebug[7:4] = Offset %8'd100 / 8'd10;
-assign OffsetBcdDebug[3:0] = Offset % 8'd10;
 
 endmodule

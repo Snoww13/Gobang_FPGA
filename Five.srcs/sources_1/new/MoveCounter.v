@@ -27,15 +27,15 @@ module MoveCounter(
     input Sub,
     input [3:0] Max,
     input [3:0] Min,
-    output [3:0] Data,
-    output IsMax,
-    output IsMin
+    output [3:0] Data
+    //output IsMax,
+    //output IsMin
     );
 
 reg [3:0] data = 0; //寄存器输出？
 reg isMax, isMin;
-assign IsMax = isMax;
-assign IsMin = isMin;
+//assign IsMax = isMax;
+//assign IsMin = isMin;
 assign Data = data;
 
 always@(*)
@@ -58,7 +58,7 @@ begin
     else if(Add)
     begin
         if(isMax&CanAcrossScreen)
-            data =Min;   //决定是否穿越屏幕
+            data = Min;   //决定是否穿越屏幕
         else if(isMax&~CanAcrossScreen)
             data = Max;
         else

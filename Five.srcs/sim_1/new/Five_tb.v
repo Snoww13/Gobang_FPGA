@@ -46,6 +46,7 @@ assign key = {1'b0,up,2'b0,left,1'b0,right,2'b0,down,6'b0};
 initial
 begin
 #2 up =1;#1 up=0;
+#2 up =1;#1 up=0;#2 up =1;#1 up=0;#2 up =1;#1 up=0;#2 up =1;#1 up=0;
 #2 down =1;#1 down=0;
 #2 right =1;#1 right=0;
 #2 left =1;#1 left=0;

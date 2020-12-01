@@ -26,7 +26,7 @@ module Five(
     input [3:0] col,
     output [3:0] row,
     output [11:0] led,
-    input [15:0]keyDebug,
+    //input [15:0]keyDebug,
     output [7:0] seg,
     output [5:0] an //LED位选,
 //        ,output Hsync,
@@ -42,8 +42,9 @@ wire clk_ms,clk_20ms,clk_s;
 
 wire[15:0] key;
 wire [15:0] button;
-assign button = DEBUG?keyDebug:key;
 
+//assign button = DEBUG?keyDebug:key;
+assign button = key;
 wire up = button[14];
 wire down = button[6];
 wire left = button[11];
@@ -58,7 +59,7 @@ wire [11:0] offsetBcdDebug;
 ip_disp dis1(
     .clk(clk),
     .rst(0),
-    .dispdata({x[3:0],4'd0,offsetBcdDebug,y[3:0]}),
+    .dispdata({x[3:0],16'd0,y[3:0]}),
     .seg(seg),
     .an(an)
     );
@@ -80,29 +81,29 @@ ScanKey Sk1(//调用按键消抖动IP
 MoveCounter Xc1(
     .CanAcrossScreen( sw[0] ),
     .Reset( sw[2] ),
-    .Add( down ),
-    .Sub( up ),
+    .Add( right ),
+    .Sub( left ),
     .Max( 4'd14 ),
     .Min( 4'd0 ),
-    .Data( x ),
-    .IsMax( isMaxX ),
-    .IsMin( isMinX )
+    .Data( x )
+    //.IsMax( isMaxX ),
+    //.IsMin( isMinX )
     );
 
 MoveCounter Yc1(
     .CanAcrossScreen( sw[0] ),
     .Reset( sw[2] ),
-    .Add( right ),
-    .Sub( left ),
+    .Add( down ),
+    .Sub( up ),
     .Max( 4'd14 ),
     .Min( 4'd0 ),
-    .Data( y ),
-    .IsMax( isMaxY ),
-    .IsMin( isMinY )
+    .Data( y )
+    //,.IsMax( isMaxY ),
+    //.IsMin( isMinY )
     );
 
 OffsetCounter Oc1(
-    .CanAcrossScreen( sw[0] ),
+    /*.CanAcrossScreen( sw[0] ),
     .Reset( sw[2] ),
     .Up( up ),
     .Down( down ),
@@ -111,16 +112,14 @@ OffsetCounter Oc1(
     .IsMaxX( isMaxX ),
     .IsMinX( isMinX ),
     .IsMaxY( isMaxY ),
-    .IsMinY( isMinY ),
-    .OffsetBcdDebug(offsetBcdDebug),
-    .Offset(offset)
+    .IsMinY( isMinY ),*/
+    //.x(x),
+    //.y(y),
+    //.OffsetBcdDebug(offsetBcdDebug)
+    //.Offset(offset)
     );
 
-assign led[11]=isMinX;
-assign led[10]=isMaxX;
-assign led[9:6] = x[3:0];
-assign led[5]=isMinY;
-assign led[4]=isMaxY;
-//assign led[3:0] = {up,down,left,right};
+assign led[11:8] = x[3:0];
+assign led[7:4] = {up,down,left,right};
 assign led[3:0] = y[3:0];
 endmodule
